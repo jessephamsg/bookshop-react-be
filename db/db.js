@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const MONGO_SERVER = process.env.MONGO_SERVER || 'localhost:27017';
-const DB_NAME = process.env.DB_NAME || 'Inventories';
+const DB_NAME = 'Inventories';
 
 module.exports = {
     async connect() {
