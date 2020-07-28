@@ -76,5 +76,5 @@ const BookSchema = new Schema({
 });
 
 BookSchema.plugin(mongoosePaginate);
-const Book = mongoose.model('inventories', BookSchema);
+const Book = mongoose.model('books', BookSchema);
 module.exports = Book
