@@ -5,6 +5,7 @@ const DB_NAME = process.env.DB_NAME || 'Inventories';
 module.exports = {
     async connect() {
         try {
+            console.log('attempt to connect')
             await mongoose.connect(
                 `mongodb://${MONGO_SERVER}/${DB_NAME}`, {
                     useNewUrlParser: true
