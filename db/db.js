@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-const MONGO_SERVER = process.env.MONGO_SERVER || 'localhost:27017';
-const DB_NAME = process.env.DB_NAME || 'Inventories';
+const MONGO_SERVER = process.env.MONGO_SERVER || 'mongodb://localhost:27017/Bookstore';
+//const DB_NAME = process.env.DB_NAME || 'Bookstore';
 
 module.exports = {
     async connect() {
         try {
             console.log('attempt to connect')
             await mongoose.connect(
-                `mongodb://${MONGO_SERVER}/${DB_NAME}`, {
+                `${MONGO_SERVER}`, {
                     useNewUrlParser: true
                 }
             )
