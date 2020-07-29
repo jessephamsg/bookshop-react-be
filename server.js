@@ -14,3 +14,5 @@ db.connect();
 app.listen(port, () => {
     console.log('listening on', port);
 });
+
+console.log('alvis')
