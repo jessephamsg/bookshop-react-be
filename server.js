@@ -7,15 +7,17 @@ const router = require('./router/routes');
 const db = require('./db/db');
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://bookshop-react-fe.herokuapp.com/',
+    credentials: true
+}));
 app.use(router);
 db.connect(); 
 
 app.listen(port, () => {
     console.log('listening on', port);
-    console.log('tam');
 });
 
 console.log('alvis')
 console.log('lina');
-
+console.log('alvis second console')
