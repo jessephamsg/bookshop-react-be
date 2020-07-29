@@ -9,7 +9,7 @@ const db = require('./db/db');
 app.use(bodyParser.json());
 app.use(cors());
 app.use(router);
-db.connect();
+db.connect(); 
 
 app.listen(port, () => {
     console.log('listening on', port);
