@@ -66,8 +66,9 @@ module.exports = {
                 }
             }]);
             for (const book of results) {
+                console.log(results);
                 await this.updateOne(book._id, {
-                    'avgRating': book.avgRating
+                    avgRating: book.avgRating
                 });
             }
             const tenHighestRating = await this.sortAndLimit({
@@ -82,10 +83,8 @@ module.exports = {
         try {
             const result = await Book.findByIdAndUpdate({
                     _id: objectID
-                },
-                valueToUpdate, {
-                    new: true
-                }
+                }, 
+                valueToUpdate
             )
             return result
         } catch (err) {
