@@ -8,8 +8,8 @@ const db = require('./db/db');
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'https://bookshop-react-fe.herokuapp.com/',
-    credentials: true
+    // origin: 'https://bookshop-react-fe.herokuapp.com/',
+    // credentials: true
 }));
 app.use(router);
 db.connect(); 

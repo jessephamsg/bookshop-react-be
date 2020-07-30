@@ -37,7 +37,7 @@ const BookSchema = new Schema({
         required: true
     },
     avgRating: {
-        type: String,
+        type: Number,
         default: 0
     },
     format: {
@@ -67,11 +67,7 @@ const BookSchema = new Schema({
         thickness: Number
     },
     rating: [{
-        body: Number,
-        date: {
-            type: Date,
-            default: Date.now
-        }
+        type: Number,
     }]
 });
 
