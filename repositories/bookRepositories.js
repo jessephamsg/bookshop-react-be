@@ -70,9 +70,6 @@ module.exports = {
                     'avgRating': book.avgRating
                 });
             }
-            // results.forEach(book => {
-            //     this.updateOne(book._id, {avgRating: book.avgRating});
-            // })
             const tenHighestRating = await this.sortAndLimit({
                 avgRating: -1
             }, 10);
@@ -90,6 +87,7 @@ module.exports = {
                     new: true
                 }
             )
+            return result
         } catch (err) {
             throw new Error(`Database Error: cannot execute updateOne request due to ${err.message}`);
         }
