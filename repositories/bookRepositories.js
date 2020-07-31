@@ -1,5 +1,6 @@
 const Book = require('../models/Book');
 const QUERY_LIMIT = 50;
+const utils = require('./utils/utils');
 
 module.exports = {
     async getByFilter(filter) {
@@ -58,19 +59,12 @@ module.exports = {
     },
     async getHighestRating() {
         try {
-            const results = await Book.aggregate([{
-                $project: {
-                    avgRating: {
-                        $avg: '$rating'
-                    }
-                }
-            }]);
-            for (const book of results) {
-                console.log(results);
+            const books = await this.getAll();
+            books.forEach(async book => {
                 await this.updateOne(book._id, {
-                    avgRating: book.avgRating
-                });
-            }
+                    avgRating: utils.getAvg(book.rating)
+                })
+            });
             const tenHighestRating = await this.sortAndLimit({
                 avgRating: -1
             }, 10);
@@ -83,7 +77,7 @@ module.exports = {
         try {
             const result = await Book.findByIdAndUpdate({
                     _id: objectID
-                }, 
+                },
                 valueToUpdate
             )
             return result
