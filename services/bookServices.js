@@ -62,7 +62,7 @@ module.exports = {
         ] = await Promise.all([
             bookRepositories.getBestSelling(),
             bookRepositories.getHighestRating(),
-            bookRepositories.getByFilter({theme: 'Children'}),
+            bookRepositories.getByFilter({theme: 'Children'}),
             bookRepositories.getByFilter({theme: 'Fiction'}),
             bookRepositories.getByFilter({theme: 'Non-Fiction'}),
             bookRepositories.getByFilter({theme: 'Science'})
