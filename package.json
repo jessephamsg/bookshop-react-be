@@ -11,6 +11,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "v13.10.1"
+  },
   "dependencies": {
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
