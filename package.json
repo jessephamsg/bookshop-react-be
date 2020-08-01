@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test jest",
     "seed": "mongoimport --jsonArray --db lab --collection tasks --drop --file ./db/seed/tasks.json",
-    "start": "NODE_ENV=prod node server.js",
+    "start": "node server.js",
     "start:dev": "nodemon server.js"
   },
   "author": "",
