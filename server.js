@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
+    // origin: 'https://bookshop-react-fe.herokuapp.com/',
+    // credentials: true
 }));
 
 app.use(
@@ -37,5 +39,3 @@ db.connect();
 app.listen(port, () => {
     console.log(`listening on ${port}`);
 });
-
-
