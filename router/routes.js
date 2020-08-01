@@ -11,7 +11,6 @@ const googleAuth = require('../controllers/authenticateGoogle')
 const bookControllers = controllers.bookControllers;
 
 router.get('/', bookControllers.getAll);
-router.get('/home', bookControllers.getHomePageData);
 
 router.post('/login', login.login)
 

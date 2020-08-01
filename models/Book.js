@@ -37,7 +37,7 @@ const BookSchema = new Schema({
         required: true
     },
     avgRating: {
-        type: Number,
+        type: String,
         default: 0
     },
     format: {
@@ -67,10 +67,14 @@ const BookSchema = new Schema({
         thickness: Number
     },
     rating: [{
-        type: Number,
+        body: Number,
+        date: {
+            type: Date,
+            default: Date.now
+        }
     }]
 });
 
-//BookSchema.plugin(mongoosePaginate);
+BookSchema.plugin(mongoosePaginate);
 const Book = mongoose.model('books', BookSchema);
 module.exports = Book

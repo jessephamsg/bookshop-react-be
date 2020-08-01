@@ -4,6 +4,7 @@ const MONGO_SERVER = process.env.MONGO_SERVER || 'mongodb+srv://learning:hateher
 module.exports = {
     async connect() {
         try {
+            console.log('attempt to connect')
             await mongoose.connect(
                 `${MONGO_SERVER}`, {
                     useNewUrlParser: true

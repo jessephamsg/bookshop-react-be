@@ -13,13 +13,14 @@ const TEST_DATA = {
     avgRating: 0,
     format: "Paperback",
     publisher: "Bloomsbury Publishing",
-    purchaseQty: Math.floor((Math.random() * 200) + 1),
+    purchaseQty: 0,
     reviews: [],
     dimensions: {
         width: 129,
         height: 198,
         thickness: 24
-    }
+    },
+    rating: []
 }
 
 beforeAll(async () => {
@@ -27,11 +28,15 @@ beforeAll(async () => {
     await bookRepo.createOne(TEST_DATA);
 });
 
+afterEach(async () => {
+    await db.clearMockData();
+})
+
 afterAll(async () => {
     await db.disconnect();
 })
 
-test('if the resulted array has length greater than 0', async () => {
+test('if the ', async () => {
     const results = await bookRepo.getAll();
     await expect(results.length).toBeGreaterThan(0);
 })

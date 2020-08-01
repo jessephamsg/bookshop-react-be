@@ -9,13 +9,5 @@ module.exports = {
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, results);
         }
-    },
-    async getHomePageData (req, res) {
-        try {
-            const results = await bookServices.getHomePageData();
-            bookResponseFormatter.responseOK(req, res, results);
-        } catch (err) {
-            bookResponseFormatter.responseNotFound(req, res, results);
-        }
     }
 }
