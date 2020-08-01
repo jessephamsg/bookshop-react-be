@@ -5,15 +5,36 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const router = require('./router/routes');
 const db = require('./db/db');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const session = require('express-session');
+const corsURLs = ['http://localhost:3000','https://bookshop-dev-fe.herokuapp.com','https://bookshop-react-fe.herokuapp.com'];
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json());
 app.use(cors({
-    // origin: 'https://bookshop-react-fe.herokuapp.com/',
-    // credentials: true
+    origin: corsURLs,
+    credentials: true
 }));
+
+app.use(
+    session({
+        secret: 'secret',
+        resave: true,
+        saveUninitialized: true
+      })
+);
+
+app.use(cookieParser('secret'))
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+
 app.use(router);
 db.connect(); 
 
 app.listen(port, () => {
-    console.log('listening on', port);
+    console.log(`listening on ${port}`);
 });
