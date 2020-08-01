@@ -8,13 +8,14 @@ const db = require('./db/db');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const session = require('express-session');
+const corsURLs = ['http://localhost:3000','https://bookshop-dev-fe.herokuapp.com','https://bookshop-react-fe.herokuapp.com'];
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: corsURLs,
     credentials: true
 }));
 
