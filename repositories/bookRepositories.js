@@ -5,14 +5,7 @@ const utils = require('./utils/utils');
 module.exports = {
     async getByFilter(filter) {
         try {
-            const query = filter;
-            const options = {
-                limit: QUERY_LIMIT,
-            }
-            const results = await Book.paginate(filter, options,
-                (err, result) => {
-                    return result.docs;
-                })
+            const results = await Book.find(filter);
             return results
         } catch (err) {
             throw new Error(`Database Error: cannot get by filter ${err.message}`)
@@ -83,6 +76,21 @@ module.exports = {
             return result
         } catch (err) {
             throw new Error(`Database Error: cannot execute updateOne request due to ${err.message}`);
+        }
+    },
+    async getByPagination (filter) {
+        try {
+            const query = filter;
+            const options = {
+                limit: QUERY_LIMIT,
+            }
+            const results = await Book.paginate(filter, options,
+                (err, result) => {
+                    return result.docs;
+                })
+            return results
+        } catch (err) {
+            throw new Error(`Database Error: cannot get by filter ${err.message}`)
         }
     }
 }
