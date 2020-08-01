@@ -8,8 +8,8 @@ const db = require('./db/db');
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'https://bookshop-react-fe.herokuapp.com/',
-    credentials: true
+    // origin: 'https://bookshop-react-fe.herokuapp.com/',
+    // credentials: true
 }));
 app.use(router);
 db.connect(); 
@@ -17,7 +17,3 @@ db.connect();
 app.listen(port, () => {
     console.log('listening on', port);
 });
-
-console.log('alvis')
-console.log('lina');
-console.log('alvis second console')

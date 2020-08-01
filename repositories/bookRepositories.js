@@ -1,17 +1,11 @@
 const Book = require('../models/Book');
 const QUERY_LIMIT = 50;
+const utils = require('./utils/utils');
 
 module.exports = {
     async getByFilter(filter) {
         try {
-            const query = filter;
-            const options = {
-                limit: QUERY_LIMIT,
-            }
-            const results = await Book.paginate(filter, options,
-                (err, result) => {
-                    return result.docs;
-                })
+            const results = await Book.find(filter);
             return results
         } catch (err) {
             throw new Error(`Database Error: cannot get by filter ${err.message}`)
@@ -31,6 +25,72 @@ module.exports = {
             return result
         } catch (err) {
             throw new Error(`Database Error: cannot execute createOne request due to ${err.message}`);
+        }
+    },
+    async createMany(data) {
+        try {
+            const results = await Book.insertMany(data);
+            return results;
+        } catch (err) {
+            throw new Error(`Database Error: cannot execute createMany request due to ${err.message}`)
+        }
+    },
+    async sortAndLimit(sortCriteria, returnLength) {
+        try {
+            const results = await Book.find({}).sort(sortCriteria)
+            const filteredResults = results.slice(0, returnLength);
+            return filteredResults;
+        } catch (err) {
+            throw new Error(`Database Error: cannot execute getBestSelling request due to ${err.message}`);
+        }
+    },
+    async getBestSelling() {
+        const tenBestSelling = await this.sortAndLimit({
+            purchaseQty: -1
+        }, 10);
+        return tenBestSelling;
+    },
+    async getHighestRating() {
+        try {
+            const books = await this.getAll();
+            books.forEach(async book => {
+                await this.updateOne(book._id, {
+                    avgRating: utils.getAvg(book.rating)
+                })
+            });
+            const tenHighestRating = await this.sortAndLimit({
+                avgRating: -1
+            }, 10);
+            return tenHighestRating;
+        } catch (err) {
+            throw new Error(`Database Error: cannot execute getHighestRating request due to ${err.message}`);
+        }
+    },
+    async updateOne(objectID, valueToUpdate) {
+        try {
+            const result = await Book.findByIdAndUpdate({
+                    _id: objectID
+                },
+                valueToUpdate
+            )
+            return result
+        } catch (err) {
+            throw new Error(`Database Error: cannot execute updateOne request due to ${err.message}`);
+        }
+    },
+    async getByPagination (filter) {
+        try {
+            const query = filter;
+            const options = {
+                limit: QUERY_LIMIT,
+            }
+            const results = await Book.paginate(filter, options,
+                (err, result) => {
+                    return result.docs;
+                })
+            return results
+        } catch (err) {
+            throw new Error(`Database Error: cannot get by filter ${err.message}`)
         }
     }
 }
