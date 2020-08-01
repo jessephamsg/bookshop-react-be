@@ -4,7 +4,7 @@ const controllers = require('../controllers');
 const register = require('../controllers/registerHandler')
 const login = require('../controllers/loginHandler')
 const getUser = require('../controllers/getUser')
-const logout = require ('../controllers/logOutHandler')
+const logout = require ('../controllers/logoutHandler')
 const google = require ('../controllers/googleHandler')
 const googleAuth = require('../controllers/authenticateGoogle')
 
