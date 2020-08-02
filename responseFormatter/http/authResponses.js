@@ -10,10 +10,13 @@ const buildJSONResponse = (data, isSuccess, message, errMessage) => {
 }
 
 module.exports = {
-    responseSuccessLogin (res, data, isSuccess, message, errMessage) {
+    responseOK (res, data, isSuccess, message, errMessage) {
         res.status(HTTP_RESPONSE_STATUS_CODE.OK).json(
             buildJSONResponse(data, isSuccess, message, errMessage)
         )
+    },
+    responseSuccessLogin (res, data, isSuccess, message, errMessage) {
+        this.responseOK (res, data, isSuccess, message, errMessage);
     },
     responseServerErr (res, data, isSuccess, message, errMessage) {
         res.status(HTTP_RESPONSE_STATUS_CODE.SERVERERR).json(
@@ -31,8 +34,9 @@ module.exports = {
         )
     },
     responseSuccessAcc (res, data, isSuccess, message, errMessage) {
-        res.status(HTTP_RESPONSE_STATUS_CODE.OK).json(
-            buildJSONResponse(data, isSuccess, message, errMessage)
-        )
+        this.responseOK (res, data, isSuccess, message, errMessage);
+    },
+    responseSuccessLogOut (res, data, isSuccess, message, errMessage) {
+        this.responseOK (res, data, isSuccess, message, errMessage);
     },
 }

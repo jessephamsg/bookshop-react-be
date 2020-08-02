@@ -8,5 +8,13 @@ module.exports = {
     async createOne (name, email, password) {
         await authRepositories.createOne(name, email, password);
         return true
+    },
+    async googleAuthFindOne (filter) {
+        const result = await authRepositories.googleAuthFindOne(filter);
+        return result
+    },
+    async createGoogleUser () {
+        const result = await authRepositories.createGoogleUser();
+        return result
     }
 }
