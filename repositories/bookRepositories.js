@@ -1,6 +1,7 @@
 const Book = require('../models/Book');
 const QUERY_LIMIT = 50;
 const utils = require('./utils/utils');
+const errUtils = require('./utils/error');
 
 module.exports = {
     async getByFilter(filter) {
@@ -8,7 +9,7 @@ module.exports = {
             const results = await Book.find(filter);
             return results
         } catch (err) {
-            throw new Error(`Database Error: cannot get by filter ${err.message}`)
+            throw new Error(errUtils.buildDBErrMessage('getByFilter', err))
         }
     },
     async getAll() {
@@ -16,7 +17,7 @@ module.exports = {
             const results = await this.getByFilter({});
             return results
         } catch (err) {
-            throw new Error(`Database Error: cannot execute getAll request due to ${err.message}`);
+            throw new Error(errUtils.buildDBErrMessage('getAll', err));
         }
     },
     async createOne(newBook) {
@@ -24,7 +25,7 @@ module.exports = {
             const result = await Book.create(newBook);
             return result
         } catch (err) {
-            throw new Error(`Database Error: cannot execute createOne request due to ${err.message}`);
+            throw new Error(errUtils.buildDBErrMessage('createOne', err));
         }
     },
     async createMany(data) {
@@ -32,7 +33,7 @@ module.exports = {
             const results = await Book.insertMany(data);
             return results;
         } catch (err) {
-            throw new Error(`Database Error: cannot execute createMany request due to ${err.message}`)
+            throw new Error(errUtils.buildDBErrMessage('createMany', err))
         }
     },
     async sortAndLimit(sortCriteria, returnLength) {
@@ -41,7 +42,7 @@ module.exports = {
             const filteredResults = results.slice(0, returnLength);
             return filteredResults;
         } catch (err) {
-            throw new Error(`Database Error: cannot execute getBestSelling request due to ${err.message}`);
+            throw new Error(errUtils.buildDBErrMessage('sortAndLimit', err));
         }
     },
     async getBestSelling() {
@@ -63,7 +64,7 @@ module.exports = {
             }, 10);
             return tenHighestRating;
         } catch (err) {
-            throw new Error(`Database Error: cannot execute getHighestRating request due to ${err.message}`);
+            throw new Error(errUtils.buildDBErrMessage('getHighestRating', err));
         }
     },
     async updateOne(objectID, valueToUpdate) {
@@ -75,7 +76,7 @@ module.exports = {
             )
             return result
         } catch (err) {
-            throw new Error(`Database Error: cannot execute updateOne request due to ${err.message}`);
+            throw new Error(errUtils.buildDBErrMessage('updateOne', err));
         }
     },
     async getByPagination (filter) {
@@ -90,7 +91,7 @@ module.exports = {
                 })
             return results
         } catch (err) {
-            throw new Error(`Database Error: cannot get by filter ${err.message}`)
+            throw new Error(errUtils.buildDBErrMessage('getByPagination', err))
         }
     }
 }
