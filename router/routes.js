@@ -13,6 +13,8 @@ const bookControllers = controllers.bookControllers;
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getHomePageData);
 
+router.get('/cat/:catName', bookControllers.getCatListingData);
+
 router.post('/login', login.login)
 
 router.post('/register', register.addUser)

@@ -81,5 +81,11 @@ module.exports = {
             uniqueCat: this.getUniqueCategory()
         }
         return formattedResults;
+    },
+    async getCatListingData(req) {
+        const catName = req.params.catName;
+        const catListing = await bookRepositories.getByFilter({theme: catName});
+        
+        return catListing;
     }
 }
