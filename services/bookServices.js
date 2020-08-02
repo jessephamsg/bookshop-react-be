@@ -46,6 +46,10 @@ module.exports = {
         });
         return formattedResults;
     },
+    async getUniqueCategory() {
+        const uniqueCat = await bookRepositories.getUniqueCategory();
+        return uniqueCat;
+    },
     async getAll() {
         const bookData = await bookRepositories.getAll();
         const formattedResults = this.formatReturnedData(bookData);
@@ -73,7 +77,8 @@ module.exports = {
             childrenBooks: this.formatReturnedData(childrenBooks),
             fictionBooks: this.formatReturnedData(fictionBooks),
             nonFictionBooks: this.formatReturnedData(nonFictionBooks),
-            scienceBooks: this.formatReturnedData(scienceBooks)
+            scienceBooks: this.formatReturnedData(scienceBooks),
+            uniqueCat: this.getUniqueCategory()
         }
         return formattedResults;
     }
