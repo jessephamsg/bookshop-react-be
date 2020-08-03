@@ -13,8 +13,8 @@ module.exports = {
         const result = await authRepositories.googleAuthFindOne(filter);
         return result
     },
-    async createGoogleUser () {
-        const result = await authRepositories.createGoogleUser();
+    async createGoogleUser (name, email, googleId, imageUrl) {
+        const result = await authRepositories.createGoogleUser(name, email, googleId, imageUrl);
         return result
     }
 }

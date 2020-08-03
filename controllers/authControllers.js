@@ -1,7 +1,9 @@
 const axios = require('axios');
-const authResponseFormatter = require('../responseFormatter/http/authResponses');
 const passportServices = require('passport');
+const authResponseFormatter = require('../services/httpResServices/http/authResponses');
 const accountServices = require('../services/accountServices');
+const passwordValidatorService = require('../services/passwordValidatorSvc');
+const GOOGLE_AUTH_API = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='
 
 module.exports = {
     async addUser(req, res, next) {
@@ -12,13 +14,7 @@ module.exports = {
                 password,
                 password2
             } = req.body;
-            let errors = []
-            password !== password2 && errors.push({
-                message: "Passwords do not match"
-            })
-            password.length < 6 && errors.push({
-                message: "Password should be at least 6 characters in length"
-            })
+            let errors = passwordValidatorService.validatePassword(password, password2);
             if (errors.length > 0) {
                 authResponseFormatter.responseCreateAccErr(res, null, false, null, errors)
             } else {
@@ -58,7 +54,7 @@ module.exports = {
             if (newUser) {
                 authResponseFormatter.responseSuccessLogin(res, null, true, 'Email is already registered', null)
             } else {
-                const newUser = await accountServices.createGoogleUser();
+                const newUser = await accountServices.createGoogleUser(name, email, googleId, imageUrl);
                 authResponseFormatter.responseSuccessAcc(res, newUser, true, 'User successfully created', null)
             }
         } catch (err) {
@@ -71,8 +67,7 @@ module.exports = {
     async googleAuth(req, res, next) {
         try {
             const id = Object.keys(req.body)
-            const response = await axios.get(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${id[0]}`)
-            console.log(response);
+            const response = await axios.get(`${GOOGLE_AUTH_API}${id[0]}`)
             const existingUser = await accountServices.googleAuthFindOne({
                 email: response.data.email
             })

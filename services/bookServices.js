@@ -1,5 +1,5 @@
 const bookRepositories = require('../repositories/bookRepositories');
-const Book = require('../responseFormatter/data/Book');
+const Book = require('../services/utils/objClassBuilder/Book');
 
 const buildBookObject = ({
     _id,

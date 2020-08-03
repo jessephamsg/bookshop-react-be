@@ -1,4 +1,4 @@
-const HTTP_RESPONSE_STATUS_CODE = require('../../config/statusCodes');
+const HTTP_RESPONSE_STATUS_CODE = require('../config/statusCodes');
 
 const buildJSONResponse = (data, isSuccess, message, errMessage) => {
     return {

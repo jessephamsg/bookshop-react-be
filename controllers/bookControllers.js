@@ -1,5 +1,5 @@
 const bookServices = require('../services/bookServices');
-const bookResponseFormatter = require('../responseFormatter/http/bookRepoResponses');
+const bookResponseFormatter = require('../services/httpResServices/http/bookRepoResponses');
 
 module.exports = {
     async getAll(req, res) {
