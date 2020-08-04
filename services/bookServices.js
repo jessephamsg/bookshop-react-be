@@ -78,7 +78,7 @@ module.exports = {
             fictionBooks: this.formatReturnedData(fictionBooks),
             nonFictionBooks: this.formatReturnedData(nonFictionBooks),
             scienceBooks: this.formatReturnedData(scienceBooks),
-            uniqueCat: this.getUniqueCategory()
+            uniqueCat: await this.getUniqueCategory()
         }
         return formattedResults;
     },
