@@ -1,5 +1,5 @@
 const bookRepositories = require('../repositories/bookRepositories');
-const Book = require('../responseFormatter/data/Book');
+const Book = require('../services/utils/objClassBuilder/Book');
 
 const buildBookObject = ({
     _id,
@@ -59,17 +59,25 @@ module.exports = {
         const [
             bestSellingBooks,
             topRankingBooks,
-            childrenBooks, 
-            fictionBooks, 
-            nonFictionBooks, 
+            childrenBooks,
+            fictionBooks,
+            nonFictionBooks,
             scienceBooks
         ] = await Promise.all([
             bookRepositories.getBestSelling(),
             bookRepositories.getHighestRating(),
-            bookRepositories.getByFilter({theme: 'Children'}),
-            bookRepositories.getByFilter({theme: 'Fiction'}),
-            bookRepositories.getByFilter({theme: 'Non-Fiction'}),
-            bookRepositories.getByFilter({theme: 'Science'})
+            bookRepositories.getByFilter({
+                theme: 'Children'
+            }),
+            bookRepositories.getByFilter({
+                theme: 'Fiction'
+            }),
+            bookRepositories.getByFilter({
+                theme: 'Non-Fiction'
+            }),
+            bookRepositories.getByFilter({
+                theme: 'Science'
+            })
         ]);
         const formattedResults = {
             bestSellingBooks: this.formatReturnedData(bestSellingBooks),
@@ -81,6 +89,12 @@ module.exports = {
             uniqueCat: await this.getUniqueCategory()
         }
         return formattedResults;
+    },
+    async getSearchResults(searchText) {
+        const bookData = await bookRepositories.getByFuzzySearch(searchText);
+        const itemBookData = bookData.map(book => book.item);
+        const formattedResults = this.formatReturnedData(itemBookData);
+        return formattedResults
     },
     async getCatListingData(req) {
         const catName = req.params.catName;

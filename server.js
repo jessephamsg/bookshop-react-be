@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: corsURLs,
-    credentials: true
+    origin: 'http://localhost:3000',
+    //credentials: true
 }));
 
 app.use(
@@ -30,7 +30,7 @@ app.use(
 app.use(cookieParser('secret'))
 app.use(passport.initialize());
 app.use(passport.session());
-require('./config/passport')(passport);
+require('./services/passport')(passport);
 
 app.use(router);
 db.connect(); 
