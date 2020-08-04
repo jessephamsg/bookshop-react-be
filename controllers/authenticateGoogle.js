@@ -12,11 +12,11 @@ module.exports = authenticateGoogle = {
             console.log(response.data.name)
             const existingUser = await Google.findOne({ email: response.data.email })
             if (existingUser) {
-                return res.status(200).json({
-                    success: true,
-                    message: 'user authenticated',
-                    data: response.data.name // user data / email address or correct user CRUD operation
-                })
+                req.existingUser = {
+                    name: existingUser.name,
+                    email: existingUser.email
+                };
+                next();
             }
         } catch (err) {
             return res.status(500).json({

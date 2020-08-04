@@ -6,9 +6,13 @@ const login = require('../controllers/loginHandler')
 const getUser = require('../controllers/getUser')
 const logout = require ('../controllers/logoutHandler')
 const google = require ('../controllers/googleHandler')
-const googleAuth = require('../controllers/authenticateGoogle')
+const googleAuth = require('../controllers/authenticateGoogle');
+const authenticateGoogle = require('../controllers/authenticateGoogle');
 
 const bookControllers = controllers.bookControllers;
+
+//middleware
+router.use(authenticateGoogle.googleAuth);
 
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getHomePageData);
