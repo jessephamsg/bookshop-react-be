@@ -17,5 +17,13 @@ module.exports = {
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, results);
         }
+    },
+    async getCatListingData (req, res) {
+        try {
+            const results = await bookServices.getCatListingData(req);
+            bookResponseFormatter.responseOK(req, res, results);
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, results);
+        }
     }
 }

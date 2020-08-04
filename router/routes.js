@@ -6,12 +6,15 @@ const login = require('../controllers/loginHandler')
 const getUser = require('../controllers/getUser')
 const logout = require ('../controllers/logoutHandler')
 const google = require ('../controllers/googleHandler')
-const googleAuth = require('../controllers/authenticateGoogle')
+const googleAuth = require('../controllers/authenticateGoogle');
+const authenticateGoogle = require('../controllers/authenticateGoogle');
 
 const bookControllers = controllers.bookControllers;
 
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getHomePageData);
+
+router.get('/cat/:catName', bookControllers.getCatListingData);
 
 router.post('/login', login.login)
 
