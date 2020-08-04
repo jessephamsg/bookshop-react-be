@@ -6,6 +6,7 @@ const authControllers = controllers.authControllers;
 
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getHomePageData);
+router.get('/search', bookControllers.getSearchData);
 router.post('/login', authControllers.login)
 router.post('/register', authControllers.addUser)
 router.post('/login/google', authControllers.addGoogleUser)

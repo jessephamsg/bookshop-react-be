@@ -2,6 +2,7 @@ const Book = require('../models/Book');
 const QUERY_LIMIT = 50;
 const utils = require('./utils/utils');
 const errUtils = require('./utils/error');
+const Fuse = require('fuse.js');
 
 module.exports = {
     async getByFilter(filter) {
@@ -92,6 +93,20 @@ module.exports = {
             return results
         } catch (err) {
             throw new Error(errUtils.buildDBErrMessage('getByPagination', err))
+        }
+    },
+    async getByFuzzySearch (searchText) {
+        try {
+            const list = await this.getAll();
+            const options = {
+                includeScore: true,
+                keys: ['title', 'author', 'theme']
+            }
+            const fuse = new Fuse(list, options);
+            const result = fuse.search(searchText);
+            return result
+        } catch (err) {
+            throw new Error(errUtils.buildDBErrMessage('getByFuzzySearch', err))
         }
     }
 }

@@ -76,5 +76,11 @@ module.exports = {
             scienceBooks: this.formatReturnedData(scienceBooks)
         }
         return formattedResults;
+    },
+    async getSearchResults (searchText) {
+        const bookData = await bookRepositories.getByFuzzySearch(searchText);
+        const itemBookData = bookData.map(book => book.item);
+        const formattedResults = this.formatReturnedData(itemBookData);
+        return formattedResults
     }
 }
