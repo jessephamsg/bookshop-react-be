@@ -11,9 +11,6 @@ const authenticateGoogle = require('../controllers/authenticateGoogle');
 
 const bookControllers = controllers.bookControllers;
 
-//middleware
-router.use(authenticateGoogle.googleAuth);
-
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getHomePageData);
 

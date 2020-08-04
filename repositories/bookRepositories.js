@@ -21,7 +21,6 @@ module.exports = {
     },
     async getUniqueCategory() {
         try {
-            const existingUser = req.existingUser;
             const results = await Book.distinct('theme', function(error, theme) { theme.sort(); });
             return results
         } catch (err) {
