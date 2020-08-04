@@ -1,19 +1,19 @@
 const authRepositories = require('../repositories/authRepositories');
 
 module.exports = {
-    async findOne (filter) {
+    async findOne(filter) {
         const result = await authRepositories.findOne(filter);
         return result
     },
-    async createOne (name, email, password) {
+    async createOne(name, email, password) {
         await authRepositories.createOne(name, email, password);
         return true
     },
-    async googleAuthFindOne (filter) {
+    async googleAuthFindOne(filter) {
         const result = await authRepositories.googleAuthFindOne(filter);
         return result
     },
-    async createGoogleUser (name, email, googleId, imageUrl) {
+    async createGoogleUser(name, email, googleId, imageUrl) {
         const result = await authRepositories.createGoogleUser(name, email, googleId, imageUrl);
         return result
     }

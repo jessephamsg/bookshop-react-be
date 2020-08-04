@@ -80,7 +80,7 @@ module.exports = {
             throw new Error(errUtils.buildDBErrMessage('updateOne', err));
         }
     },
-    async getByPagination (filter) {
+    async getByPagination(filter) {
         try {
             const query = filter;
             const options = {
@@ -95,7 +95,7 @@ module.exports = {
             throw new Error(errUtils.buildDBErrMessage('getByPagination', err))
         }
     },
-    async getByFuzzySearch (searchText) {
+    async getByFuzzySearch(searchText) {
         try {
             const list = await this.getAll();
             const options = {

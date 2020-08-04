@@ -49,7 +49,7 @@ module.exports = {
             }
         });
     },
-    async googleAuthFindOne (filter) {
+    async googleAuthFindOne(filter) {
         try {
             const result = await Google.findOne(filter);
             return result
@@ -57,7 +57,7 @@ module.exports = {
             throw new Error(errUtils.buildAuthRepoErrMsg('googleAuthFindOne', err));
         }
     },
-    async createGoogleUser (name, email, googleId, imageUrl) {
+    async createGoogleUser(name, email, googleId, imageUrl) {
         try {
             const newUser = new Google({
                 name,
