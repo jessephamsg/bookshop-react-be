@@ -21,6 +21,14 @@ module.exports = {
             throw new Error(errUtils.buildDBErrMessage('getAll', err));
         }
     },
+    async getUniqueCategory() {
+        try {
+            const results = await Book.distinct('theme', function(error, theme) { theme.sort(); });
+            return results
+        } catch (err) {
+            throw new Error(`Database Error: cannot execute getUniqueCategory request due to ${err.message}`);
+        }
+    },
     async createOne(newBook) {
         try {
             const result = await Book.create(newBook);

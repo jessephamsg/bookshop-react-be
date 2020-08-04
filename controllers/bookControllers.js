@@ -18,10 +18,18 @@ module.exports = {
             bookResponseFormatter.responseNotFound(req, res, results);
         }
     },
-    async getSearchData (req, res) {
+   async getSearchData (req, res) {
         const query = req.query.query;
         const results = await bookServices.getSearchResults(query);
         try {
+            bookResponseFormatter.responseOK(req, res, results);
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, results);
+        }
+    },
+    async getCatListingData (req, res) {
+        try {
+            const results = await bookServices.getCatListingData(req);
             bookResponseFormatter.responseOK(req, res, results);
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, results);

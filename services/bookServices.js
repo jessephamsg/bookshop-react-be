@@ -46,6 +46,10 @@ module.exports = {
         });
         return formattedResults;
     },
+    async getUniqueCategory() {
+        const uniqueCat = await bookRepositories.getUniqueCategory();
+        return uniqueCat;
+    },
     async getAll() {
         const bookData = await bookRepositories.getAll();
         const formattedResults = this.formatReturnedData(bookData);
@@ -81,7 +85,8 @@ module.exports = {
             childrenBooks: this.formatReturnedData(childrenBooks),
             fictionBooks: this.formatReturnedData(fictionBooks),
             nonFictionBooks: this.formatReturnedData(nonFictionBooks),
-            scienceBooks: this.formatReturnedData(scienceBooks)
+            scienceBooks: this.formatReturnedData(scienceBooks),
+            uniqueCat: await this.getUniqueCategory()
         }
         return formattedResults;
     },
@@ -90,5 +95,11 @@ module.exports = {
         const itemBookData = bookData.map(book => book.item);
         const formattedResults = this.formatReturnedData(itemBookData);
         return formattedResults
+    },
+    async getCatListingData(req) {
+        const catName = req.params.catName;
+        const catListing = await bookRepositories.getByFilter({theme: catName});
+        
+        return catListing;
     }
 }
