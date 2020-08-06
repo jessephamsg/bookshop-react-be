@@ -1,5 +1,5 @@
 const bookRepositories = require('../repositories/bookRepositories');
-const Book = require('../responseFormatter/data/Book');
+const Book = require('../services/utils/objClassBuilder/Book');
 
 const buildBookObject = ({
     _id,
@@ -46,35 +46,29 @@ module.exports = {
         });
         return formattedResults;
     },
+    async getUniqueCategory() {
+        const uniqueCat = await bookRepositories.getUniqueCategory();
+        return uniqueCat;
+    },
     async getAll() {
         const bookData = await bookRepositories.getAll();
         const formattedResults = this.formatReturnedData(bookData);
         return formattedResults;
     },
-    async getHomePageData() {
-        const [
-            bestSellingBooks,
-            topRankingBooks,
-            childrenBooks, 
-            fictionBooks, 
-            nonFictionBooks, 
-            scienceBooks
-        ] = await Promise.all([
-            bookRepositories.getBestSelling(),
-            bookRepositories.getHighestRating(),
-            bookRepositories.getByFilter({theme: 'Children'}),
-            bookRepositories.getByFilter({theme: 'Fiction'}),
-            bookRepositories.getByFilter({theme: 'Non-Fiction'}),
-            bookRepositories.getByFilter({theme: 'Science'})
-        ]);
-        const formattedResults = {
-            bestSellingBooks: this.formatReturnedData(bestSellingBooks),
-            topRankingBooks: this.formatReturnedData(topRankingBooks),
-            childrenBooks: this.formatReturnedData(childrenBooks),
-            fictionBooks: this.formatReturnedData(fictionBooks),
-            nonFictionBooks: this.formatReturnedData(nonFictionBooks),
-            scienceBooks: this.formatReturnedData(scienceBooks)
-        }
-        return formattedResults;
+    async getSearchResults(searchText) {
+        const bookData = await bookRepositories.getByFuzzySearch(searchText);
+        const itemBookData = bookData.map(book => book.item);
+        const formattedResults = this.formatReturnedData(itemBookData);
+        return formattedResults
+    },
+    async getCatListingData(req) {
+        const catName = req.params.catName;
+        const catListing = await bookRepositories.getByFilter({theme: catName});
+        return catListing;
+    },
+    async getBookDataByCategory (category, limit) {
+        const results = await bookRepositories.getBookDataByCategories(category, limit);
+        const formattedResults = this.formatReturnedData(results);
+        return formattedResults
     }
 }

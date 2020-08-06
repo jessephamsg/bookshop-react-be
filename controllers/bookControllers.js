@@ -1,5 +1,5 @@
 const bookServices = require('../services/bookServices');
-const bookResponseFormatter = require('../responseFormatter/http/bookRepoResponses');
+const bookResponseFormatter = require('../services/httpResServices/http/bookRepoResponses');
 
 module.exports = {
     async getAll(req, res) {
@@ -10,9 +10,36 @@ module.exports = {
             bookResponseFormatter.responseNotFound(req, res, results);
         }
     },
-    async getHomePageData (req, res) {
+    async getUniqueCategories (req, res) {
         try {
-            const results = await bookServices.getHomePageData();
+            const results = await bookServices.getUniqueCategory();
+            bookResponseFormatter.responseOK(req, res, results);
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, results);
+        }
+    },
+   async getSearchData (req, res) {
+        const query = req.query.query;
+        const results = await bookServices.getSearchResults(query);
+        try {
+            bookResponseFormatter.responseOK(req, res, results);
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, results);
+        }
+    },
+    async getCatListingData (req, res) {
+        try {
+            const results = await bookServices.getCatListingData(req);
+            bookResponseFormatter.responseOK(req, res, results);
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, results);
+        }
+    },
+    async getBookData (req, res) {
+        const category = req.query.query;
+        const limit = parseInt(req.query.limit);
+        const results = await bookServices.getBookDataByCategory(category, limit);
+        try {
             bookResponseFormatter.responseOK(req, res, results);
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, results);
