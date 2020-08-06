@@ -4,6 +4,8 @@ const controllers = require('../controllers');
 const bookControllers = controllers.bookControllers;
 const authControllers = controllers.authControllers;
 
+console.log("test");
+
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getUniqueCategories);
 router.get('/books', bookControllers.getBookData);
