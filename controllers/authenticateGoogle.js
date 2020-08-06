@@ -15,7 +15,7 @@ module.exports = authenticateGoogle = {
                 return res.status(200).json({
                     success: true,
                     message: 'user authenticated',
-                    data: response.data.name // user data / email address or correct user CRUD operation
+                    data: response.data // user data / email address or correct user CRUD operation
                 })
             }
         } catch (err) {

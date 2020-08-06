@@ -11,18 +11,19 @@ const googleAuth = require('../controllers/authenticateGoogle')
 const bookControllers = controllers.bookControllers;
 
 router.get('/', bookControllers.getAll);
+
 router.get('/home', bookControllers.getHomePageData);
 
-router.post('/login', login.login)
+router.post('/login', login.login);
 
-router.post('/register', register.addUser)
+router.post('/register', register.addUser);
 
-router.post('/login/google', google.addGoogleUser)
+router.post('/login/google', google.addGoogleUser);
 
-router.post('/googleauth', googleAuth.googleAuth)
+router.post('/googleauth', googleAuth.googleAuth);
 
-router.get('/user', getUser.getUser)
+router.get('/user', getUser.getUser);
 
-router.get('/logout', logout.logout)
+router.get('/logout', logout.logout);
 
 module.exports = router;
