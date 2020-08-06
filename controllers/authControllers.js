@@ -72,7 +72,7 @@ module.exports = {
                 email: response.data.email
             })
             if (existingUser) {
-                authResponseFormatter.responseSuccessLogin(res, response.data.name, true, 'User Authenticated', null)
+                authResponseFormatter.responseSuccessLogin(res, response.data, true, 'User Authenticated', null)
             }
         } catch (err) {
             authResponseFormatter.responseServerErr(res, null, false, null, 'User is not authenticated')
