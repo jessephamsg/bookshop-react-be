@@ -55,41 +55,6 @@ module.exports = {
         const formattedResults = this.formatReturnedData(bookData);
         return formattedResults;
     },
-    async getHomePageData() {
-        const [
-            bestSellingBooks,
-            topRankingBooks,
-            childrenBooks,
-            fictionBooks,
-            nonFictionBooks,
-            scienceBooks
-        ] = await Promise.all([
-            bookRepositories.getBestSelling(),
-            bookRepositories.getHighestRating(),
-            bookRepositories.getByFilter({
-                theme: 'Children'
-            }),
-            bookRepositories.getByFilter({
-                theme: 'Fiction'
-            }),
-            bookRepositories.getByFilter({
-                theme: 'Non-Fiction'
-            }),
-            bookRepositories.getByFilter({
-                theme: 'Science'
-            })
-        ]);
-        const formattedResults = {
-            bestSellingBooks: this.formatReturnedData(bestSellingBooks),
-            topRankingBooks: this.formatReturnedData(topRankingBooks),
-            childrenBooks: this.formatReturnedData(childrenBooks),
-            fictionBooks: this.formatReturnedData(fictionBooks),
-            nonFictionBooks: this.formatReturnedData(nonFictionBooks),
-            scienceBooks: this.formatReturnedData(scienceBooks),
-            uniqueCat: await this.getUniqueCategory()
-        }
-        return formattedResults;
-    },
     async getSearchResults(searchText) {
         const bookData = await bookRepositories.getByFuzzySearch(searchText);
         const itemBookData = bookData.map(book => book.item);
@@ -99,7 +64,11 @@ module.exports = {
     async getCatListingData(req) {
         const catName = req.params.catName;
         const catListing = await bookRepositories.getByFilter({theme: catName});
-        
         return catListing;
+    },
+    async getBookDataByCategory (category, limit) {
+        const results = await bookRepositories.getBookDataByCategories(category, limit);
+        const formattedResults = this.formatReturnedData(results);
+        return formattedResults
     }
 }

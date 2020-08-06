@@ -10,9 +10,9 @@ module.exports = {
             bookResponseFormatter.responseNotFound(req, res, results);
         }
     },
-    async getHomePageData (req, res) {
+    async getUniqueCategories (req, res) {
         try {
-            const results = await bookServices.getHomePageData();
+            const results = await bookServices.getUniqueCategory();
             bookResponseFormatter.responseOK(req, res, results);
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, results);
@@ -30,6 +30,16 @@ module.exports = {
     async getCatListingData (req, res) {
         try {
             const results = await bookServices.getCatListingData(req);
+            bookResponseFormatter.responseOK(req, res, results);
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, results);
+        }
+    },
+    async getBookData (req, res) {
+        const category = req.query.query;
+        const limit = parseInt(req.query.limit);
+        const results = await bookServices.getBookDataByCategory(category, limit);
+        try {
             bookResponseFormatter.responseOK(req, res, results);
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, results);

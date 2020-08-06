@@ -23,7 +23,9 @@ module.exports = {
     },
     async getUniqueCategory() {
         try {
-            const results = await Book.distinct('theme', function(error, theme) { theme.sort(); });
+            const results = await Book.distinct('theme', function (error, theme) {
+                theme.sort();
+            });
             return results
         } catch (err) {
             throw new Error(`Database Error: cannot execute getUniqueCategory request due to ${err.message}`);
@@ -116,5 +118,38 @@ module.exports = {
         } catch (err) {
             throw new Error(errUtils.buildDBErrMessage('getByFuzzySearch', err))
         }
+    },
+    async getBookDataByCategories(category, limit) {
+        let result = null;
+        switch (category) {
+            case 'bestSelling':
+                result = await this.getBestSelling();
+                break;
+            case 'topRanking':
+                result = await this.getHighestRating();
+                break;
+            case 'Children':
+                result = await this.getByFilter({
+                    theme: 'Children'
+                });
+                break;
+            case 'Fiction':
+                result = await this.getByFilter({
+                    theme: 'Fiction'
+                });
+                break;
+            case 'Non-Fiction':
+                result = await this.getByFilter({
+                    theme: 'Non-Fiction'
+                });
+                break;
+            case 'Science':
+                result = await this.getByFilter({
+                    theme: 'Science'
+                });
+                break;
+        }
+        const returnedResults = result.slice(0, limit);
+        return returnedResults;
     }
 }
