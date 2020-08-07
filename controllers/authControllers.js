@@ -46,8 +46,6 @@ module.exports = {
             const {
                 name,
                 email,
-                googleId,
-                imageUrl
             } = req.body;
             const newUser = await accountServices.googleAuthFindOne({
                 email: email
@@ -55,7 +53,7 @@ module.exports = {
             if (newUser) {
                 authResponseFormatter.responseSuccessLogin(res, null, true, 'Email is already registered', null)
             } else {
-                const newUser = await accountServices.createGoogleUser(name, email, googleId, imageUrl);
+                const newUser = await accountServices.createGoogleUser(name, email);
                 authResponseFormatter.responseSuccessAcc(res, newUser, true, 'User successfully created', null)
             }
         } catch (err) {
@@ -81,7 +79,6 @@ module.exports = {
     },
     getUser(req, res, next) {
         res.send(req.user)
-        console.log(req)
     },
     login(req, res, next) {
         passportServices.authenticate('local', (error, user, info) => {
