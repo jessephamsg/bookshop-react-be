@@ -3,7 +3,8 @@ const passportServices = require('passport');
 const authResponseFormatter = require('../services/httpResServices/http/authResponses');
 const accountServices = require('../services/accountServices');
 const passwordValidatorService = require('../services/passwordValidatorSvc');
-const GOOGLE_AUTH_API = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='
+const GOOGLE_AUTH_API = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
+
 
 module.exports = {
     async addUser(req, res, next) {
@@ -72,7 +73,7 @@ module.exports = {
                 email: response.data.email
             })
             if (existingUser) {
-                authResponseFormatter.responseSuccessLogin(res, response.data.name, true, 'User Authenticated', null)
+                authResponseFormatter.responseSuccessLogin(res, response.data, true, 'User Authenticated', null)
             }
         } catch (err) {
             authResponseFormatter.responseServerErr(res, null, false, null, 'User is not authenticated')
@@ -80,6 +81,7 @@ module.exports = {
     },
     getUser(req, res, next) {
         res.send(req.user)
+        console.log(req)
     },
     login(req, res, next) {
         passportServices.authenticate('local', (error, user, info) => {
@@ -96,7 +98,7 @@ module.exports = {
                         authResponseFormatter.responseServerErr(res, null, false, null, 'Server Error');
                     }
                     authResponseFormatter.responseSuccessLogin(res, req.user, true, {
-                        message: 'User successfully logged in'
+                        message: 'User successfully logged in',
                     }, null)
                 })
             }
