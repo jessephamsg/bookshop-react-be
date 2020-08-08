@@ -67,6 +67,12 @@ module.exports = {
         const formattedResults = this.formatReturnedData(catListing);
         return formattedResults;
     },
+    async getBookDetail(req) {
+        const bookID = req.params.bookID;
+        const bookDetail = await bookRepositories.getByFilter({_id: bookID});
+        const formattedResults = this.formatReturnedData(bookDetail);
+        return formattedResults;
+    },
     async getBookDataByCategory (category, limit) {
         const results = await bookRepositories.getBookDataByCategories(category, limit);
         const formattedResults = this.formatReturnedData(results);
