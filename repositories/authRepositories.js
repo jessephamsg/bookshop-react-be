@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const Google = require('../models/Google')
 const bcrypt = require('bcrypt');
 const errUtils = require('./utils/error');
 
@@ -51,24 +50,28 @@ module.exports = {
     },
     async googleAuthFindOne(filter) {
         try {
-            const result = await Google.findOne(filter);
+            const result = await User.findOne(filter);
             return result
         } catch (err) {
             throw new Error(errUtils.buildAuthRepoErrMsg('googleAuthFindOne', err));
         }
     },
-    async createGoogleUser(name, email, googleId, imageUrl) {
+    async createGoogleUser(name, email) {
         try {
-            const newUser = new Google({
+            const newUser = new User({
                 name,
                 email,
-                googleId,
-                imageUrl
+                googleUser: true
             })
             await newUser.save();
             return newUser
         } catch (err) {
             throw new Error(errUtils.buildAuthRepoErrMsg('createGoogleUser', err));
         }
-    }
+    },
+    // async findUserById (id) {
+    //     const user = await User.findById (id);
+    //     if (err,user) return done(err, user);
+    //     console.log('deseria')
+    // }
 }

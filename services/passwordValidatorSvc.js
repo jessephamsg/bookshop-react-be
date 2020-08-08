@@ -1,5 +1,5 @@
 module.exports = {
-    validatePassword(password, password2) {
+    async validatePassword(password, password2) {
         let errors = []
         password !== password2 && errors.push({
             message: "Passwords do not match"
