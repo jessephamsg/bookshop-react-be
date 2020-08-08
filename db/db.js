@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const MONGO_SERVER = process.env.MONGO_SERVER || 'mongodb://localhost:27017/Bookstore';
+const MONGO_SERVER = process.env.MONGO_SERVER || 'mongodb+srv://learning:hateherla@cluster0-dlmch.mongodb.net/reactp1?retryWrites=true&w=majority';
 
 module.exports = {
     async connect() {
         try {
-            console.log('attempt to connect')
             await mongoose.connect(
                 `${MONGO_SERVER}`, {
                     useNewUrlParser: true
