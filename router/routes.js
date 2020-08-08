@@ -13,7 +13,6 @@ router.get('/search', bookControllers.getSearchData);
 router.get('/books/:index', bookControllers.getBookById);
 router.get('/uniqueCat', bookControllers.getUniqueCategories);
 router.get('/cat/:catName', bookControllers.getCatListingData);
-router.get('/prod/:bookID', bookControllers.getBookDetail);
 router.post('/login', authControllers.login)
 router.post('/register', authControllers.addUser)
 router.post('/login/google', authControllers.addGoogleUser)
