@@ -3,7 +3,8 @@ const passportServices = require('passport');
 const authResponseFormatter = require('../services/httpResServices/http/authResponses');
 const accountServices = require('../services/accountServices');
 const passwordValidatorService = require('../services/passwordValidatorSvc');
-const GOOGLE_AUTH_API = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='
+const GOOGLE_AUTH_API = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
+
 
 module.exports = {
     async addUser(req, res, next) {
@@ -45,8 +46,6 @@ module.exports = {
             const {
                 name,
                 email,
-                googleId,
-                imageUrl
             } = req.body;
             const newUser = await accountServices.googleAuthFindOne({
                 email: email
@@ -54,7 +53,7 @@ module.exports = {
             if (newUser) {
                 authResponseFormatter.responseSuccessLogin(res, null, true, 'Email is already registered', null)
             } else {
-                const newUser = await accountServices.createGoogleUser(name, email, googleId, imageUrl);
+                const newUser = await accountServices.createGoogleUser(name, email);
                 authResponseFormatter.responseSuccessAcc(res, newUser, true, 'User successfully created', null)
             }
         } catch (err) {
@@ -72,7 +71,7 @@ module.exports = {
                 email: response.data.email
             })
             if (existingUser) {
-                authResponseFormatter.responseSuccessLogin(res, response.data.name, true, 'User Authenticated', null)
+                authResponseFormatter.responseSuccessLogin(res, response.data, true, 'User Authenticated', null)
             }
         } catch (err) {
             authResponseFormatter.responseServerErr(res, null, false, null, 'User is not authenticated')
@@ -96,7 +95,7 @@ module.exports = {
                         authResponseFormatter.responseServerErr(res, null, false, null, 'Server Error');
                     }
                     authResponseFormatter.responseSuccessLogin(res, req.user, true, {
-                        message: 'User successfully logged in'
+                        message: 'User successfully logged in',
                     }, null)
                 })
             }
