@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'http://localhost:3000',
-    //credentials: true
+    origin: corsURLs,
+    credentials: true
 }));
 
 app.use(

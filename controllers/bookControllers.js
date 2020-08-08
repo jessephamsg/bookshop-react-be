@@ -44,5 +44,14 @@ module.exports = {
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, results);
         }
+    },
+    async getBookById (req, res) {
+        const bookId = req.params.index;
+        const result = await bookServices.getBookByID(bookId);
+        try {
+            bookResponseFormatter.responseOK(req, res, result);
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, result);
+        }
     }
 }
