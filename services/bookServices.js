@@ -64,8 +64,7 @@ module.exports = {
     async getCatListingData(req) {
         const catName = req.params.catName;
         const catListing = await bookRepositories.getByFilter({theme: catName});
-        const formattedResults = this.formatReturnedData(catListing);
-        return formattedResults;
+        return catListing;
     },
     async getBookDataByCategory (category, limit) {
         const results = await bookRepositories.getBookDataByCategories(category, limit);
