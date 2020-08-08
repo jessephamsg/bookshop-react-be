@@ -77,5 +77,10 @@ module.exports = {
         const results = await bookRepositories.getBookDataByCategories(category, limit);
         const formattedResults = this.formatReturnedData(results);
         return formattedResults
+    },
+    async getBookByID (bookId) {
+        const result = await bookRepositories.getBookById(bookId);
+        const formattedResult = this.formatReturnedData([result]);
+        return formattedResult
     }
 }

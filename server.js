@@ -11,7 +11,6 @@ const session = require('express-session');
 const corsURLs = ['http://localhost:3000','https://bookshop-dev-fe.herokuapp.com','https://bookshop-react-fe.herokuapp.com'];
 
 
-
 app.use(cookieParser('secret'))
 app.use(bodyParser.json());
 app.use(express.json())
@@ -24,13 +23,10 @@ app.use(
       })
 );
 
-
 app.use(cors({
     origin: corsURLs,
     credentials: true
 }));
-
-
 
 app.use(passport.initialize());
 app.use(passport.session());

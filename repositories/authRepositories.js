@@ -68,5 +68,10 @@ module.exports = {
         } catch (err) {
             throw new Error(errUtils.buildAuthRepoErrMsg('createGoogleUser', err));
         }
-    }
+    },
+    // async findUserById (id) {
+    //     const user = await User.findById (id);
+    //     if (err,user) return done(err, user);
+    //     console.log('deseria')
+    // }
 }

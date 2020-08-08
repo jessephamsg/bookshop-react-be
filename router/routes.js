@@ -9,6 +9,7 @@ router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getUniqueCategories);
 router.get('/books', bookControllers.getBookData);
 router.get('/search', bookControllers.getSearchData);
+router.get('/books/:index', bookControllers.getBookById);
 router.get('/uniqueCat', bookControllers.getUniqueCategories);
 router.get('/cat/:catName', bookControllers.getCatListingData);
 router.get('/prod/:bookID', bookControllers.getBookDetail);

@@ -16,5 +16,5 @@ module.exports = {
     async createGoogleUser(name, email) {
         const result = await authRepositories.createGoogleUser(name, email);
         return result
-    }
+    },
 }
