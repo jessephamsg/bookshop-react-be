@@ -49,7 +49,7 @@ const BookSchema = new Schema({
         required: true
     },
     purchaseQty: {
-        type: String,
+        type: Number,
         default: 0
     },
     arrivedOn: String,
