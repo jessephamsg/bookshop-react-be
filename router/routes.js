@@ -5,10 +5,13 @@ const changePassword = require('../controllers/changePassword')
 const bookControllers = controllers.bookControllers;
 const authControllers = controllers.authControllers;
 
+console.log("test");
+
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getUniqueCategories);
 router.get('/books', bookControllers.getBookData);
 router.get('/search', bookControllers.getSearchData);
+router.get('/uniqueCat', bookControllers.getUniqueCategories);
 router.get('/cat/:catName', bookControllers.getCatListingData);
 router.post('/login', authControllers.login)
 router.post('/register', authControllers.addUser)
