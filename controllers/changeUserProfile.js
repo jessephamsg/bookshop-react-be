@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const { findByIdAndUpdate } = require('../models/User');
 const authResponseFormatter = require('../services/httpResServices/http/authResponses');
 
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
                 email: email
             })
             console.log(updatedUserData)
-            authResponseFormatter.responseOK(res, updatedUserData, true, 'User Profile is successfully updated', null)
+            authResponseFormatter.responseOK(res, null, true, 'User Profile is successfully updated', null)
         } catch (err) {
             console.log(err)
             authResponseFormatter.responseServerErr(res, null, false, null, 'Server Error')

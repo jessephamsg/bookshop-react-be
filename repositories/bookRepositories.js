@@ -151,13 +151,5 @@ module.exports = {
         }
         const returnedResults = result.slice(0, limit);
         return returnedResults;
-    },
-    async getBookById (bookID) {
-        try {
-            const result = Book.findById(bookID);
-            return result
-        } catch (err) {
-            throw new Error (errUtils.buildDBErrMessage('getBookById', err));
-        }
     }
 }
