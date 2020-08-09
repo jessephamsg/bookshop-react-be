@@ -1,4 +1,5 @@
 const authRepositories = require('../repositories/authRepositories');
+const accountRepositories = require('../repositories/accountRepositories');
 
 module.exports = {
     async findOne(filter) {
@@ -20,7 +21,7 @@ module.exports = {
     async updateUserOrderHistory (email, orderArr) {
         const rawOrderArr = orderArr.map(order => order.raw);
         const orderArrID = rawOrderArr.map(order => order.id);
-        await authRepositories.updateUserOrderHistoryByEmail (email, orderArrID);
+        await accountRepositories.updateUserOrderHistoryByEmail (email, orderArrID);
         return
     }
 }

@@ -6,6 +6,7 @@ const changeUserProfile = require('../controllers/changeUserProfile');
 const booksReview = require('../controllers/booksReview');
 const bookControllers = controllers.bookControllers;
 const authControllers = controllers.authControllers;
+const accountControllers = controllers.accountControllers;
 
 router.get('/', bookControllers.getAll);
 router.get('/home', bookControllers.getUniqueCategories);
@@ -25,7 +26,8 @@ router.post('/changepassword', changePassword.changeLocalPassword);
 router.post('/changeUserProfile', changeUserProfile.changeUserProfile)
 router.get('/user', authControllers.getUser);
 router.get('/logout', authControllers.logout);
-router.put('/user', authControllers.updateUserOrderHistory);
+
+router.put('/user', accountControllers.updateUserOrderHistory);
 
 
 module.exports = router;

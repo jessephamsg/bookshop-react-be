@@ -104,15 +104,5 @@ module.exports = {
     logout(req, res, next) {
         req.logout()
         authResponseFormatter.responseSuccessLogOut(res, null, true, 'User successfully logged out', null)
-    },
-    async updateUserOrderHistory (req, res) {
-        const userEmail = req.body.email;
-        const orders = req.body.orders;
-        try {
-            await accountServices.updateUserOrderHistory (userEmail, orders);
-            authResponseFormatter.responseOK(res, null, true, 'Updated User History', null);
-        } catch (err) {
-            authResponseFormatter.responseServerErr(res, {}, false, null, 'Cannot update user order history');
-        }
     }
 }
