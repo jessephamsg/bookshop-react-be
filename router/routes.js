@@ -27,6 +27,7 @@ router.post('/changeUserProfile', changeUserProfile.changeUserProfile)
 router.get('/user', authControllers.getUser);
 router.get('/logout', authControllers.logout);
 
+router.get('/user/orders', accountControllers.getUserOrderHistory);
 router.put('/user', accountControllers.updateUserOrderHistory);
 
 

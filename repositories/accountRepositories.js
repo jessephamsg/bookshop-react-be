@@ -17,7 +17,16 @@ module.exports = {
             })
             return result
         } catch (err) {
-            throw new Error(errUtils.buildAuthRepoErrMsg('updateUserOrderHistoryByEmail'), err);
+            throw new Error(errUtils.buildAuthRepoErrMsg('updateUserOrderHistoryByEmail', err));
+        }
+    },
+    async getUserOrderHistory (email) {
+        try {
+            const userAccount = await User.findOne({email});
+            const result = userAccount.orders;
+            return result
+        } catch (err) {
+            throw new Error(errUtils.buildAuthRepoErrMsg('getUserOrderHistory', err));
         }
     }
 }

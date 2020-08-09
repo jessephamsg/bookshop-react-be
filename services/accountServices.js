@@ -1,5 +1,8 @@
 const authRepositories = require('../repositories/authRepositories');
 const accountRepositories = require('../repositories/accountRepositories');
+const dataFormatter = require('./bookServices').formatReturnedData
+const bookRepositories = require('../repositories/bookRepositories');
+
 
 module.exports = {
     async findOne(filter) {
@@ -23,5 +26,14 @@ module.exports = {
         const orderArrID = rawOrderArr.map(order => order.id);
         await accountRepositories.updateUserOrderHistoryByEmail (email, orderArrID);
         return
+    },
+    async getUserOrderHistory (email) {
+        const bookIDs = await accountRepositories.getUserOrderHistory(email);
+        const bookObjects = [];
+        for (const bookID of bookIDs) {
+            bookObjects.push(await bookRepositories.getBookById(bookID));
+        }
+        const formattedResult = dataFormatter(bookObjects);
+        return formattedResult
     }
 }
