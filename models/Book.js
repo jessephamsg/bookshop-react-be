@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+const stringFormatter = require('../services/utils/objClassBuilder/stringParsers/stringFormatter');
 
 const Schema = mongoose.Schema;
 
@@ -55,11 +56,13 @@ const BookSchema = new Schema({
     arrivedOn: String,
     daysFromArrival: Number,
     reviews: [{
-        body: String,
+        name: {type: String, required: true},
+        rating: {type: Number, required: true},
+        review: {type: String, required: true},
         date: {
             type: Date,
             default: Date.now
-        }
+          }
     }],
     dimensions: {
         width: Number,
