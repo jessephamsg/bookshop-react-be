@@ -17,4 +17,10 @@ module.exports = {
         const result = await authRepositories.createGoogleUser(name, email);
         return result
     },
+    async updateUserOrderHistory (email, orderArr) {
+        const rawOrderArr = orderArr.map(order => order.raw);
+        const orderArrID = rawOrderArr.map(order => order.id);
+        await authRepositories.updateUserOrderHistoryByEmail (email, orderArrID);
+        return
+    }
 }

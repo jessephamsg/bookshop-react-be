@@ -76,5 +76,12 @@ module.exports = {
         const result = await bookRepositories.getBookById(bookId);
         const formattedResult = this.formatReturnedData([result]);
         return formattedResult
+    },
+    async updateBookPurchaseQtyByID (bookArr) {
+        const bookArrRawData = bookArr.map(book => book.raw);
+        for(const book of bookArrRawData) {
+            await bookRepositories.updateBookQuantity(book.id)
+        }
+        return
     }
 }

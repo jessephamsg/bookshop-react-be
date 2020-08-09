@@ -20,7 +20,10 @@ const UserSchema = new Schema({
     date: {
       type: Date,
       default: Date.now
-    }
+    },
+    orders: [{
+      type: String,
+    }] 
   });
 
 const User = mongoose.model('User', UserSchema)
