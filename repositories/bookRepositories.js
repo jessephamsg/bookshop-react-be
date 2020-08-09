@@ -151,5 +151,28 @@ module.exports = {
         }
         const returnedResults = result.slice(0, limit);
         return returnedResults;
+    },
+    async getBookById(bookID) {
+        try {
+            const result = await Book.findById(bookID);
+            return result
+        } catch (err) {
+            throw new Error(errUtils.buildDBErrMessage('getBookById', err));
+        }
+    },
+    async updateBookQuantity(bookID) {
+        try {
+            const result = await Book.findByIdAndUpdate({
+                _id: bookID
+            }, {
+                $inc: {
+                    quantity: -1,
+                    purchaseQty: 1
+                }
+            });
+            return result
+        } catch (err) {
+            throw new Error(errUtils.buildDBErrMessage('updateBookQuantity', err));
+        }
     }
 }
