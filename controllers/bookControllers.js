@@ -35,14 +35,6 @@ module.exports = {
             bookResponseFormatter.responseNotFound(req, res, results);
         }
     },
-    async getBookDetail (req, res) {
-        try {
-            const results = await bookServices.getBookDetail(req);
-            bookResponseFormatter.responseOK(req, res, results);
-        } catch (err) {
-            bookResponseFormatter.responseNotFound(req, res, results);
-        }
-    },
     async getBookData (req, res) {
         const category = req.query.query;
         const limit = parseInt(req.query.limit);
