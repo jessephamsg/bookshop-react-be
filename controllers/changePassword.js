@@ -8,8 +8,8 @@ module.exports = {
         try {
             const { id, currentPassword, password, password2 } = req.body
             let errors = await passwordValidatorService.validatePassword(password, password2);
-            const existingPassword = await User.findById(id, 'password')
             if (errors.length > 0) authResponseFormatter.responseCreateAccErr(res, null, false, null, errors)
+            const existingPassword = await User.findById(id, 'password')
             const validateCurrentPassword = await bcrypt.compare(currentPassword, existingPassword.password, async (err, isMatch) => {
                 try {
                     if (isMatch) {

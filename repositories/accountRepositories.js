@@ -28,5 +28,13 @@ module.exports = {
         } catch (err) {
             throw new Error(errUtils.buildAuthRepoErrMsg('getUserOrderHistory', err));
         }
+    },
+    async updateUserProfile (userID, updatedInfo) {
+        try {
+            const result = await User.findByIdAndUpdate(userID, updatedInfo);
+            return result
+        } catch (err) {
+            throw new Error(errUtils.buildAuthRepoErrMsg('updateUserProfile', err));
+        }
     }
 }

@@ -35,5 +35,9 @@ module.exports = {
         }
         const formattedResult = dataFormatter(bookObjects);
         return formattedResult
+    },
+    async updateUserProfile (userID, updatedInfo) {
+        const result = await accountRepositories.updateUserProfile(userID, updatedInfo);
+        return result
     }
 }
