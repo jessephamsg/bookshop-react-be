@@ -73,5 +73,22 @@ module.exports = {
     //     const user = await User.findById (id);
     //     if (err,user) return done(err, user);
     //     console.log('deseria')
-    // }
+    // },
+    async updateUserOrderHistoryByEmail(email, orderArray) {
+        try {
+            const result = await User.findOneAndUpdate({
+                email
+            }, {
+                $push: {
+                    orders: orderArray
+                }
+            }, {
+                new: true,
+                upsert: true
+            })
+            return result
+        } catch (err) {
+            throw new Error(errUtils.buildAuthRepoErrMsg('updateUserOrderHistoryByEmail'), err);
+        }
+    }
 }

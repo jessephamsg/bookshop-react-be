@@ -15,13 +15,17 @@ router.post('/booksreview', booksReview.updateBookReview);
 router.get('/books/:index', bookControllers.getBookById);
 router.get('/uniqueCat', bookControllers.getUniqueCategories);
 router.get('/cat/:catName', bookControllers.getCatListingData);
-router.post('/login', authControllers.login)
-router.post('/register', authControllers.addUser)
-router.post('/login/google', authControllers.addGoogleUser)
-router.post('/googleauth', authControllers.googleAuth)
-router.post('/changepassword', changePassword.changeLocalPassword)
+router.put('/books/checkout', bookControllers.updateBookPurchaseQty);
+
+router.post('/login', authControllers.login);
+router.post('/register', authControllers.addUser);
+router.post('/login/google', authControllers.addGoogleUser);
+router.post('/googleauth', authControllers.googleAuth);
+router.post('/changepassword', changePassword.changeLocalPassword);
 router.post('/changeUserProfile', changeUserProfile.changeUserProfile)
-router.get('/user', authControllers.getUser)
-router.get('/logout', authControllers.logout)
+router.get('/user', authControllers.getUser);
+router.get('/logout', authControllers.logout);
+router.put('/user', authControllers.updateUserOrderHistory);
+
 
 module.exports = router;

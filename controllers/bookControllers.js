@@ -53,5 +53,14 @@ module.exports = {
         } catch (err) {
             bookResponseFormatter.responseNotFound(req, res, result);
         }
+    },
+    async updateBookPurchaseQty (req, res) {
+        const bookArr = req.body;
+        try {
+            await bookServices.updateBookPurchaseQtyByID(bookArr)
+            bookResponseFormatter.responseOK(req, res, {});
+        } catch (err) {
+            bookResponseFormatter.responseNotFound(req, res, {});
+        }
     }
 }
