@@ -174,5 +174,15 @@ module.exports = {
         } catch (err) {
             throw new Error(errUtils.buildDBErrMessage('updateBookQuantity', err));
         }
+    },
+    async updateBookReview (bookID, newReview, newRating) {
+        try {
+            const result = await Book.findByIdAndUpdate(bookID, {
+                $push: { reviews: newReview, rating: newRating } 
+            })
+            return result
+        } catch (err) {
+            throw new Error(errUtils.buildDBErrMessage('updateBookReview', err));
+        }
     }
 }

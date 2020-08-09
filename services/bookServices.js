@@ -83,5 +83,9 @@ module.exports = {
             await bookRepositories.updateBookQuantity(book.id)
         }
         return
+    },
+    async updateBookReview (bookID, newReview, newRating) {
+        const result = await bookRepositories.updateBookReview(bookID, newReview, newRating);
+        return result
     }
 }
