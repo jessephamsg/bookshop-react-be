@@ -24,7 +24,7 @@ module.exports = {
                     from: 'singaporerewardstracker@gmail.com',
                     to: response.email,
                     subject: 'Password Reset Link',
-                    text: `Click on the below link to reset your password \n http://localhost:3000/forgetpassword/reset/${response._id}`
+                    text: `Click on the below link to reset your password \n https://bookshop-react-fe.herokuapp.com/forgetpassword/reset/${response._id}`
                 };
                 transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
