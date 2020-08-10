@@ -5,40 +5,65 @@ const accountServices = require('../services/accountServices');
 const passwordValidatorService = require('../services/passwordValidatorSvc');
 const GOOGLE_AUTH_API = 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=';
 
+const User = require('../models/User')
+const bcrypt = require('bcrypt');
 
 module.exports = {
     async addUser(req, res, next) {
         try {
-            const {
-                name,
-                email,
-                password,
-                password2
-            } = req.body;
-            let errors = passwordValidatorService.validatePassword(password, password2);
+            const { name, email, password, password2 } = req.body;
+            let errors = []
+            password !== password2 && errors.push({ message: "Password do not match" })
+            password.length < 6 && errors.push({ message: "Password should be at least 6 character" })
+
             if (errors.length > 0) {
-                authResponseFormatter.responseCreateAccErr(res, null, false, null, errors)
-            } else {
-                const newUser = await accountServices.findOne({
-                    email: email
+                return res.status(422).json({
+                    success: false,
+                    error: errors
                 })
+            } else {
+                const newUser = await User.findOne({ email: email })
                 if (newUser) {
-                    errors.push({
-                        msg: "Email is already registered"
+                    errors.push({ message: "Email is already registered" })
+                    return res.status(422).json({
+                        success: false,
+                        error: errors
                     })
-                    authResponseFormatter.responseCreateAccErr(res, null, false, null, errors)
                 } else {
-                    const result = await accountServices.createOne(name, email, password);
-                    if (result) {
-                        authResponseFormatter.responseSuccessAcc(res, newUser, true, "User successfully created", null)
-                    } else {
-                        authResponseFormatter.responseServerErr(res, null, false, null, 'Server Error');
-                    }
+                    const newUser = new User({
+                        name,
+                        email,
+                        password
+                    })
+                    bcrypt.genSalt(10, async (err, salt) => {
+                        try {
+                            const hash = await bcrypt.hash(newUser.password, salt)
+                            newUser.password = hash
+                            await newUser.save()
+                            return res.status(201).json({
+                                success: true,
+                                message: "User successfully created",
+                                data: newUser
+                            })
+                        } catch (err) {
+                            console.log(err)
+                            const error = err._message
+                            return res.status(500).json({
+                                success: false,
+                                msg: "Server Error",
+                                error: {msg: error}
+                            })
+                        }
+                    })
                 }
             }
+
         } catch (err) {
             const error = err._message
-            authResponseFormatter.responseServerErr(res, null, false, 'Server Error', null);
+            return res.status(500).json({
+                success: false,
+                error: error
+            })
         }
     },
     async addGoogleUser(req, res, next) {
