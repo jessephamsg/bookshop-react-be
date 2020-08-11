@@ -9,9 +9,9 @@ module.exports = {
         try {
             const { email } = req.body;
             const response = await User.findOne({ email: email })
-            console.log(response._id)
+            console.log(response)
             if (response == null) authResponseFormatter.responseOK(res, null, false, null, 'Email is not registered with us')
-            if (response && response.googleUser) authResponseFormatter.responseOK(res, null, false, null, 'Please use an email which is not Authorized by Google' )
+            else if (response && response.googleUser) authResponseFormatter.responseOK(res, null, false, null, 'Please use an email which is not Authorized by Google' )
             else {
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
